@@ -37,6 +37,5 @@ if theme and model:
   for i, message in enumerate(st.session_state.memory):
       with st.chat_message(message["role"]):
           content = message["content"]
-          if message["role"] == "user":
-              content = content
-          st.markdown(content)
+          if message["role"] != "system":
+            st.markdown(content)
