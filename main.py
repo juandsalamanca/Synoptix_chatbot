@@ -34,7 +34,7 @@ if theme and model:
     response = finance_chatbot(st.session_state.memory)
     st.session_state.memory.append({"role": "assistant", "content": response})
     
-  for i, message in enumerate(st.session_state.memory):
+  for i, message in enumerate(st.session_state.memory[1:]):
       with st.chat_message(message["role"]):
           content = message["content"]
           if message["role"] != "system":
