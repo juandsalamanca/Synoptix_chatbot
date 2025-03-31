@@ -30,12 +30,12 @@ def clean_empty_columns(df):
 
   return df
 
-def pre_process_file(file_path):
+def pre_process_file(file):
 
-  if ".xls" in file_path:
-    data = pd.read_excel(file_path)
-  elif ".csv" in file_path:
-    data = pd.read_csv(file_path)
+  if ".xls" in file.name:
+    data = pd.read_excel(file)
+  elif ".csv" in file.name:
+    data = pd.read_csv(file)
 
   data = clean_empty_columns(data)
   data = clean_empty_rows(data)
