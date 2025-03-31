@@ -1,8 +1,8 @@
 from openai import OpenAI
 
-def get_system_prompt(theme):
+def get_system_prompt(theme, pre_processed_data):
   if theme == "University":
-    system_prompt = """You’re a professional financial analyst for universities. I need you to take a look at my income statement and answer my questions/requests in such a way that I could present it to board members and they would understand our financial position.
+    system_prompt = f"""You’re a professional financial analyst for universities. I need you to take a look at my data and answer my questions/requests in such a way that I could present it to board members and they would understand our financial position.
     I'll give you the file, but before I do here are the KPIs that we generally look for:
     1. Gross Sales
     2. Gross Profit
@@ -10,11 +10,15 @@ def get_system_prompt(theme):
     4. Operating Expenses
     5. Profit before interest and tax
     6. Other income/Expenses
-    7. Earnings Before income taxes
-    By looking at the income statement make your best assumption at our industry and then let me know how we compare to others within the industry."""
+    7. Earnings Before income taxes"""
+
+    if pre_processed_data:
+      data_prompt = f"""Here's the data:
+      {pre_processed_data}"""
+      system_prompt += data_prompt
 
   elif theme == "Manufacturer":
-    system_prompt = """You’re a professional financial analyst for manufacturing companies. I need you to take a look at my income statement and answer my questions/requests in such a way that I could present it to board members and they would understand our financial position.
+    system_prompt = f"""You’re a professional financial analyst for manufacturing companies. I need you to take a look at my data and answer my questions/requests in such a way that I could present it to board members and they would understand our financial position.
     I'll give you the file, but before I do here are the KPIs that we generally look for:
     1. Gross Sales
     2. Gross Profit
@@ -22,8 +26,12 @@ def get_system_prompt(theme):
     4. Operating Expenses
     5. Profit before interest and tax
     6. Other income/Expenses
-    7. Earnings Before income taxes
-    By looking at the income statement make your best assumption at our industry and then let me know how we compare to others within the industry."""
+    7. Earnings Before income taxes"""
+    
+    if pre_processed_data:
+      data_prompt = f"""Here's the data:
+      {pre_processed_data}"""
+      system_prompt += data_prompt
 
   return  system_prompt
 
