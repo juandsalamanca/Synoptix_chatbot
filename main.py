@@ -12,20 +12,25 @@ if reset:
   response = None
 
 if "memory" not in st.session_state:
-  st.session_state.memory = []
+  st.session_state.memory = [None]
 
 model = st.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o", "gpt-4o-mini", "o1"))
 
 theme = st.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
 
+@st.cache_data
+def get_data(file):
+  data = pre_process_file(file)
+  return data
+
 pre_processed_data = None
 file = st.file_uploader("Upload your file")
 if file:
   st.write(file)
-  pre_processed_data = pre_process_file(file)
+  pre_processed_data = get_data(file)
 
-if theme and len(st.session_state.memory) == 0:
-  sys_prompt = get_system_prompt(theme, pre_processed_data)
+sys_prompt = get_system_prompt(theme, pre_processed_data)
+if st.session_state.memory[0]["content"] != sys_prompt:
   st.session_state.memory.append({"role": "system", "content": sys_prompt})
 
 
