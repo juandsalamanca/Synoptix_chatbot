@@ -26,7 +26,7 @@ def get_data(file):
 pre_processed_data = None
 file = st.file_uploader("Upload your file")
 if file:
-  st.write(file)
+  st.write(file.name)
   pre_processed_data = get_data(file)
 
 sys_prompt = get_system_prompt(theme, pre_processed_data)
