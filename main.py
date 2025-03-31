@@ -1,4 +1,5 @@
 import streamlit as st
+from preprocess_fiel import pre_process_file
 from src.llm_functions import finance_chatbot, get_system_prompt
 st.header("Synoptics")
 
@@ -17,8 +18,14 @@ model = st.selectbox(("Please choose the model to analyze and discuss the docume
 
 theme = st.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
 
+file = st.file_uploader("Upload your file")
+if file:
+  st.write(file)
+
+pre_processed_data = pre_process_file(file)
+
 if theme and len(st.session_state.memory) == 0:
-  sys_prompt = get_system_prompt(theme)
+  sys_prompt = get_system_prompt(theme, data)
   st.session_state.memory.append({"role": "system", "content": sys_prompt})
 
 
