@@ -1,5 +1,5 @@
 import streamlit as st
-from pre_process_files import pre_process_file
+from src.pre_process_files import pre_process_file
 from src.llm_functions import finance_chatbot, get_system_prompt
 st.header("Synoptics")
 
