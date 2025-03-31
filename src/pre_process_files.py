@@ -1,5 +1,5 @@
 import pandas as pd
-from ll_functions import table_cleaner
+from src.ll_functions import table_cleaner
 
 def clean_empty_rows(df):
   rows_to_drop = []
