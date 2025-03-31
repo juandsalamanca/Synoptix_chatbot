@@ -18,14 +18,14 @@ model = st.selectbox(("Please choose the model to analyze and discuss the docume
 
 theme = st.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
 
+pre_processed_data = None
 file = st.file_uploader("Upload your file")
 if file:
   st.write(file)
-
-pre_processed_data = pre_process_file(file)
+  pre_processed_data = pre_process_file(file)
 
 if theme and len(st.session_state.memory) == 0:
-  sys_prompt = get_system_prompt(theme, data)
+  sys_prompt = get_system_prompt(theme, pre_processed_data)
   st.session_state.memory.append({"role": "system", "content": sys_prompt})
 
 
