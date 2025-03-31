@@ -1,5 +1,5 @@
 import streamlit as st
-from llm_functions import finance_chatbot, get_system_prompt
+from src.llm_functions import finance_chatbot, get_system_prompt
 st.header("Synoptics")
 
 reset = st.button("Reset")
