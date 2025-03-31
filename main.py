@@ -2,6 +2,14 @@ import streamlit as st
 from llm_functions import finance_chatbot, get_system_prompt
 st.header("Synoptics")
 
+reset = st.button("Reset")
+if reset:
+  st.session_state.memory = []
+  model = None
+  theme = None
+  input = None
+  response = None
+
 if "memory" not in st.session_state:
   st.session_state.memory = []
 
@@ -11,12 +19,24 @@ theme = st.selectbox(("Please select the type entity to which the documents belo
 
 if theme and len(st.session_state.memory) == 0:
   sys_prompt = get_system_prompt(theme)
-  st.session_state.memory.append(sys_prompt)
+  st.session_state.memory.append({"role": "system", "content": sys_prompt})
 
-for i, message in enumerate(st.session_state.memory):
-    with st.chat_message(message["role"]):
-        content = message["content"]
-        if message["role"] == "user":
-            idx = content.index("says:")
-            content = content[idx+6:]
-        st.markdown(content + st.session_state.sensitive_memory[i])
+
+if theme and model:
+  
+  input = st.chat_input(
+      "Ask something...", 
+      key="user_input"
+  )
+  
+  if input:
+    st.session_state.memory.append({"role": "user", "content": input})
+    response = finance_chatbot(st.session_state.memory)
+    st.session_state.memory.append({"role": "assistant", "content": response})
+    
+  for i, message in enumerate(st.session_state.memory):
+      with st.chat_message(message["role"]):
+          content = message["content"]
+          if message["role"] == "user":
+              content = content
+          st.markdown(content)
