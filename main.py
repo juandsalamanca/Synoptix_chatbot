@@ -1,6 +1,10 @@
 import streamlit as st
+import os
 from src.pre_process_files import pre_process_file
 from src.llm_functions import finance_chatbot, get_system_prompt
+
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+ 
 st.header("Synoptics")
 
 reset = st.button("Reset")
