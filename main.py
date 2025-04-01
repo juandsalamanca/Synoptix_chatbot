@@ -5,7 +5,7 @@ from src.llm_functions import finance_chatbot, get_system_prompt
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
  
-st.header("Synoptics")
+st.header("Synoptix")
 
 with st.sidebar:
 
