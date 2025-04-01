@@ -40,7 +40,7 @@ def pre_process_file(file):
   data = clean_empty_columns(data)
   data = clean_empty_rows(data)
   data_markdown = data.to_markdown(index=False)
-  clean_table = table_cleaner(table_markdown)
+  clean_table = table_cleaner(data_markdown)
 
   return clean_table
 
