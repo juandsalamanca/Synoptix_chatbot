@@ -18,7 +18,7 @@ if reset:
 if "memory" not in st.session_state:
   st.session_state.memory = [{"role": "system", "content": None}]
 
-model = st.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o", "gpt-4o-mini", "o1"))
+model = st.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o-mini", "gpt-4o", "o1"))
 
 theme = st.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
 
@@ -47,7 +47,7 @@ if theme and model:
   
   if input:
     st.session_state.memory.append({"role": "user", "content": input})
-    response = finance_chatbot(st.session_state.memory)
+    response = finance_chatbot(st.session_state.memory, model)
     st.session_state.memory.append({"role": "assistant", "content": response})
 
   message_list = st.session_state.memory[1:]
