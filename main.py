@@ -5,7 +5,7 @@ st.header("Synoptics")
 
 reset = st.button("Reset")
 if reset:
-  st.session_state.memory = []
+  st.session_state.memory = [{"role": "system", "content": None}]
   model = None
   theme = None
   input = None
