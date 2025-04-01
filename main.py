@@ -52,7 +52,7 @@ if theme and model:
 
   message_list = st.session_state.memory[1:]
   if message_list:
-    st.write("We're in")
+    st.write(message_list)
     for i, message in enumerate(message_list):
       with st.chat_message(message["role"]):
         content = message["content"]
