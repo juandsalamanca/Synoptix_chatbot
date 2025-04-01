@@ -35,7 +35,7 @@ if file:
 
 sys_prompt = get_system_prompt(theme, pre_processed_data)
 if st.session_state.memory[0]["content"] != sys_prompt:
-  st.session_state.memory.append({"role": "system", "content": sys_prompt})
+  st.session_state.memory[0] = {"role": "system", "content": sys_prompt}
 
 
 if theme and model:
