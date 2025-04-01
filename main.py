@@ -12,7 +12,7 @@ if reset:
   response = None
 
 if "memory" not in st.session_state:
-  st.session_state.memory = [None]
+  st.session_state.memory = [{"role": "system", "content": None}]
 
 model = st.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o", "gpt-4o-mini", "o1"))
 
