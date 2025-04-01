@@ -6,8 +6,8 @@ from src.llm_functions import finance_chatbot, get_system_prompt
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
  
 st.header("Synoptics")
-
-reset = st.button("Reset")
+sb = st.sidebar
+reset = sb.button("Reset")
 if reset:
   st.session_state.memory = [{"role": "system", "content": None}]
   model = None
@@ -18,9 +18,9 @@ if reset:
 if "memory" not in st.session_state:
   st.session_state.memory = [{"role": "system", "content": None}]
 
-model = st.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o-mini", "gpt-4o", "o1"))
+model = sb.selectbox(("Please choose the model to analyze and discuss the documents"), ("gpt-4o-mini", "gpt-4o", "o1"))
 
-theme = st.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
+theme = sb.selectbox(("Please select the type entity to which the documents belong to"), ("University", "Manufacturer"))
 
 @st.cache_data
 def get_data(file):
@@ -28,7 +28,7 @@ def get_data(file):
   return data
 
 pre_processed_data = None
-file = st.file_uploader("Upload your file")
+file = sb.file_uploader("Upload your file")
 if file:
   pre_processed_data = get_data(file)
 
