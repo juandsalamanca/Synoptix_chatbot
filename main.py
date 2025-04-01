@@ -45,9 +45,11 @@ if theme and model:
     st.session_state.memory.append({"role": "user", "content": input})
     response = finance_chatbot(st.session_state.memory)
     st.session_state.memory.append({"role": "assistant", "content": response})
-    
-  for i, message in enumerate(st.session_state.memory[1:]):
-      with st.chat_message(message["role"]):
-          content = message["content"]
-          if message["role"] != "system":
-            st.markdown(content)
+
+  message_list = st.session_state.memory[1:]
+  if message_list:
+    for i, message in enumerate(message_list):
+        with st.chat_message(message["role"]):
+            content = message["content"]
+            if message["role"] != "system":
+              st.markdown(content)
